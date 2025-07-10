@@ -1,0 +1,12 @@
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\bin\Debug\net8.0\Gestao.Pedidos.SharedKernel.deps.json
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\bin\Debug\net8.0\Gestao.Pedidos.SharedKernel.dll
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\bin\Debug\net8.0\Gestao.Pedidos.SharedKernel.pdb
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.GeneratedMSBuildEditorConfig.editorconfig
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.AssemblyInfoInputs.cache
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.AssemblyInfo.cs
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.csproj.CoreCompileInputs.cache
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.sourcelink.json
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.dll
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\refint\Gestao.Pedidos.SharedKernel.dll
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\Gestao.Pedidos.SharedKernel.pdb
+C:\ProjetosPessoais\gestao-pedidos-back\Gestao.Pedidos.SharedKernel\obj\Debug\net8.0\ref\Gestao.Pedidos.SharedKernel.dll

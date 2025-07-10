@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36202.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Pedidos.API", "Gestao.Pedidos.API\Gestao.Pedidos.API.csproj", "{200F0C7B-D9CB-4A25-8A25-7F05828522C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Pedidos.SharedKernel", "Gestao.Pedidos.SharedKernel\Gestao.Pedidos.SharedKernel.csproj", "{FB69E413-94D5-4EE8-B18F-80736AB7CB69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Pedidos.Core", "Gestao.Pedidos.Core\Gestao.Pedidos.Core.csproj", "{3AC87BB1-3A02-413F-9C78-2029B43C8F40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Pedidos.Application", "Gestao.Pedidos.Application\Gestao.Pedidos.Application.csproj", "{486CB4C1-E74A-4C2B-A84D-BC8826332B80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Pedidos.Infrastructure", "Gestao.Pedidos.Infrastructure\Gestao.Pedidos.Infrastructure.csproj", "{C8B409B1-A8FE-4387-8F7D-032C37153DAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Pedidos.CrossCutting", "Gestao.Pedidos.CrossCutting\Gestao.Pedidos.CrossCutting.csproj", "{79E756C0-18F5-4C5C-A869-BA63D95A86A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{200F0C7B-D9CB-4A25-8A25-7F05828522C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200F0C7B-D9CB-4A25-8A25-7F05828522C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200F0C7B-D9CB-4A25-8A25-7F05828522C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200F0C7B-D9CB-4A25-8A25-7F05828522C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB69E413-94D5-4EE8-B18F-80736AB7CB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB69E413-94D5-4EE8-B18F-80736AB7CB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB69E413-94D5-4EE8-B18F-80736AB7CB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB69E413-94D5-4EE8-B18F-80736AB7CB69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AC87BB1-3A02-413F-9C78-2029B43C8F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AC87BB1-3A02-413F-9C78-2029B43C8F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AC87BB1-3A02-413F-9C78-2029B43C8F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AC87BB1-3A02-413F-9C78-2029B43C8F40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{486CB4C1-E74A-4C2B-A84D-BC8826332B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{486CB4C1-E74A-4C2B-A84D-BC8826332B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{486CB4C1-E74A-4C2B-A84D-BC8826332B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{486CB4C1-E74A-4C2B-A84D-BC8826332B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B409B1-A8FE-4387-8F7D-032C37153DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B409B1-A8FE-4387-8F7D-032C37153DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B409B1-A8FE-4387-8F7D-032C37153DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B409B1-A8FE-4387-8F7D-032C37153DAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E756C0-18F5-4C5C-A869-BA63D95A86A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E756C0-18F5-4C5C-A869-BA63D95A86A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E756C0-18F5-4C5C-A869-BA63D95A86A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E756C0-18F5-4C5C-A869-BA63D95A86A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33308F64-3E2F-4809-A85A-5E7F6A16013A}
+	EndGlobalSection
+EndGlobal
