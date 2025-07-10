@@ -9,7 +9,7 @@ public class Money : ValueObject
     public static Resultado<Money> Criar(decimal value)
     {
         if (value < 0)
-            return Resultado<Money>.Falhar("Valor monetário não pode ser negativo");
+            return Resultado<Money>.Falhar("Valor não pode ser negativo");
 
         return Resultado<Money>.Ok(new Money(value));
     }
