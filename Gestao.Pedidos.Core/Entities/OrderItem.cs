@@ -2,7 +2,7 @@
 
 public class OrderItem : BaseEntity
 {
-    public OrderItem() {}
+    private OrderItem() {}
 
     OrderItem(
         int productId,
