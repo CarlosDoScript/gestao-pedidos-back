@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Persistence\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +27,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.7" />
     <PackageReference Include="MongoDB.Driver" Version="3.4.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.6" />
   </ItemGroup>
 
 </Project>

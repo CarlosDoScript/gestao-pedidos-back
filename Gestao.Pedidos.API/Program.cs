@@ -1,4 +1,5 @@
 using Gestao.Pedidos.API.Extensions;
+using Gestao.Pedidos.API.Middlewares;
 using Gestao.Pedidos.CrossCutting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,4 +22,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.UseMiddleware<ExceptionMiddleware>();
 app.Run();

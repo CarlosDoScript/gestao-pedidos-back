@@ -6,7 +6,7 @@ public class Money : ValueObject
 
     private Money(decimal value) => Value = value;
 
-    public static Resultado<Money> Criar(decimal value)
+    public static Resultado<Money> Create(decimal value)
     {
         if (value < 0)
             return Resultado<Money>.Falhar("Valor não pode ser negativo");

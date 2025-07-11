@@ -21,7 +21,7 @@ public class Customer : BaseEntity
 
     public virtual List<Order> Orders { get; private set; }
 
-    public static Resultado<Customer> Criar(
+    public static Resultado<Customer> Create(
         string name,
         string email,
         string phone
@@ -29,12 +29,12 @@ public class Customer : BaseEntity
     {
         var erros = new List<string>();
 
-        var resultadoEmail = Email.Criar(email);
+        var resultadoEmail = Email.Create(email);
 
         if (resultadoEmail.ContemErros)
             erros.AddRange(resultadoEmail.Erros);
 
-        var resultadoPhone = Phone.Criar(phone);
+        var resultadoPhone = Phone.Create(phone);
 
         if (resultadoPhone.ContemErros)
             erros.AddRange(resultadoPhone.Erros);

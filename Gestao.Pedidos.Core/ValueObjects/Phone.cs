@@ -6,7 +6,7 @@ public class Phone : ValueObject
 
     private Phone(string number) => Number = number;
 
-    public static Resultado<Phone> Criar(string number)
+    public static Resultado<Phone> Create(string number)
     {
         if (string.IsNullOrWhiteSpace(number) || number.Length < 10)
             return Resultado<Phone>.Falhar("Telefone inválido");

@@ -18,8 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Commands\" />
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Validators\" />
 	  <Folder Include="Queries\" />
 	</ItemGroup>

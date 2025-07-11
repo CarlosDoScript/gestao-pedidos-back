@@ -6,7 +6,7 @@ public class Quantity : ValueObject
 
     private Quantity(int value) => Value = value;
 
-    public static Resultado<Quantity> Criar(int value)
+    public static Resultado<Quantity> Create(int value)
     {
         if (value <= 0)
             return Resultado<Quantity>.Falhar("Quantidade deve ser maior que 0");
