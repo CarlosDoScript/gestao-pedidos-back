@@ -2,11 +2,11 @@
 
 public sealed class GetByIdOrderQueryHandler(
         IOrderMongoRepository orderMongoRepository    
-    ) : IRequestHandler<GetByIdOrderQuery, Resultado<OrderDocument>>
+    ) : IRequestHandler<GetByIdOrderQuery, Resultado<OrderViewModel>>
 {
-    public async Task<Resultado<OrderDocument>> Handle(GetByIdOrderQuery request, CancellationToken cancellationToken)
+    public async Task<Resultado<OrderViewModel>> Handle(GetByIdOrderQuery request, CancellationToken cancellationToken)
     {
         var order = await orderMongoRepository.GetByIdAsync(request.OrderId);
-        return Resultado<OrderDocument>.Ok(order);
+        return Resultado<OrderViewModel>.Ok(order.ToViewModel());
     }
 }

@@ -1,6 +1,4 @@
-﻿using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Documents;
-
-namespace Gestao.Pedidos.Infrastructure.Persistence.Mongo.Mappings;
+﻿namespace Gestao.Pedidos.Infrastructure.Persistence.Mongo.Mappings;
 
 public static class OrderToDocumentMapper
 {

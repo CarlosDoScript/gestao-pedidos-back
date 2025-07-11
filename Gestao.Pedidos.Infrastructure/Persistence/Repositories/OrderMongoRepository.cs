@@ -4,7 +4,7 @@ public class OrderMongoRepository(
         IMongoCollection<OrderDocument> collection
     ) : IOrderMongoRepository
 {
-    public async Task<Paginacao<OrderDocument>> ObterPedidosPaginadosAsync(ConsultaPaginada filtro, CancellationToken cancellationToken = default)
+    public async Task<Paginacao<OrdersDocument>> ObterPedidosPaginadosAsync(ConsultaPaginada filtro, CancellationToken cancellationToken = default)
     {
         var sort = filtro.OrdemAscendente
         ? Builders<OrderDocument>.Sort.Ascending(filtro.OrdenarPor ?? "_id")
@@ -20,7 +20,17 @@ public class OrderMongoRepository(
             .Limit(filtro.TamanhoPagina)
             .ToListAsync();
 
-        return new Paginacao<OrderDocument>(items, ((int)totalRegistros), filtro.NumeroPagina, filtro.TamanhoPagina);
+        var orders = items.Select(x => new OrdersDocument
+        {
+            Id = x.Id,
+            CustomerId = x.CustomerId,
+            CustomerName = x.CustomerName,
+            OrderDate = x.OrderDate,
+            TotalAmount = x.TotalAmount,
+            Status = x.Status
+        }).ToList();
+
+        return new Paginacao<OrdersDocument>(orders, ((int)totalRegistros), filtro.NumeroPagina, filtro.TamanhoPagina);
     }
 
     public async Task<OrderDocument> GetByIdAsync(int id)
@@ -46,5 +56,5 @@ public class OrderMongoRepository(
     {
         var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, orderId);
         await collection.DeleteOneAsync(filter);
-    }    
+    }
 }

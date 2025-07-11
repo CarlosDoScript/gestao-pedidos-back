@@ -2,11 +2,23 @@
 
 public sealed class GetAllOrderQueryHandler(
         IOrderMongoRepository orderMongoRepository
-    ) : IRequestHandler<GetAllOrderQuery, Resultado<Paginacao<OrderDocument>>>
+    ) : IRequestHandler<GetAllOrderQuery, Resultado<Paginacao<OrdersViewModel>>>
 {
-    public async Task<Resultado<Paginacao<OrderDocument>>> Handle(GetAllOrderQuery query, CancellationToken cancellationToken)
+    public async Task<Resultado<Paginacao<OrdersViewModel>>> Handle(GetAllOrderQuery query, CancellationToken cancellationToken)
     {
         var registros = await orderMongoRepository.ObterPedidosPaginadosAsync(query);
-        return Resultado<Paginacao<OrderDocument>>.Ok(registros);
+
+        var orders = registros.Itens
+            .Select(x => new OrdersViewModel(
+                  x.Id,
+                  x.CustomerId,
+                  x.CustomerName,
+                  x.OrderDate.ToShortDateString(),
+                  x.TotalAmount.ToString("C"),
+                  x.Status
+            )).ToList()
+            ;
+        var paginacao = new Paginacao<OrdersViewModel>(orders, registros.TotalRegistros, registros.PaginaAtual, registros.TotalPaginas);
+        return Resultado<Paginacao<OrdersViewModel>>.Ok(paginacao);
     }
 }

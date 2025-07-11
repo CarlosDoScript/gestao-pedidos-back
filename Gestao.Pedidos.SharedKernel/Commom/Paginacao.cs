@@ -10,7 +10,7 @@ public  class Paginacao<T>
       )
     {
         Itens = itens;
-        TotalPaginas = (int)Math.Ceiling(totalRegistros / (double)tamanhoPagina);
+        TotalPaginas = totalRegistros <= 0 ? 0 : (int)Math.Ceiling(totalRegistros / (double)tamanhoPagina);
         TotalRegistros = totalRegistros;
         PaginaAtual = paginaAtual;
     }
