@@ -3,7 +3,7 @@
 public sealed class Resultado<T>
 {
     public bool Sucesso => !Erros.Any() && !_forcarFalha;
-    public bool ContemErros => Erros.Any();
+    public bool ContemErros => Erros.Any() && _forcarFalha;
     public IReadOnlyCollection<string> Erros { get; }
     public T Valor { get; }
 

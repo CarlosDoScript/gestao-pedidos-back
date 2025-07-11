@@ -8,13 +8,15 @@ public class Order : BaseEntity
         int customerId,
         DateTime orderDate, 
         Money totalAmount, 
-        OrderStatus status
+        OrderStatus status,
+        List<OrderItem> items
     )
     {
         CustomerId = customerId;
         OrderDate = orderDate;
         TotalAmount = totalAmount;
         Status = status;
+        Items = items;
     }
 
     private  Order(){}
@@ -57,9 +59,13 @@ public class Order : BaseEntity
             customerId,
             DateTime.UtcNow,
             resultadoTotalAmount.Valor,
-            OrderStatus.Confirmed
+            OrderStatus.Confirmed,
+            items
         );
 
         return Resultado<Order>.Ok(order);
     }
+
+    public void SetCustomer(Customer customer)
+        => Customer = customer;
 }

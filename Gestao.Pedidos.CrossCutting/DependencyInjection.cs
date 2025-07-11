@@ -2,6 +2,7 @@
 using Gestao.Pedidos.Core.Repositories;
 using Gestao.Pedidos.Infrastructure.Logging;
 using Gestao.Pedidos.Infrastructure.Persistence;
+using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Contracts;
 using Gestao.Pedidos.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,7 @@ public static class DependencyInjection
         services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
+        services.AddScoped<IOrderMongoRepository, OrderMongoRepository>();
     }
 
     static void ResolveConexaoBanco(IServiceCollection services, IConfiguration configuration)

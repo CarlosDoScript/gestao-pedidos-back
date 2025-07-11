@@ -14,11 +14,11 @@ public static class OrderViewModelExtensions
             Status = order.Status.ToString(),
             Items = order.Items.Select(item => new OrderItemViewModel
             {
+                Id = item.Id,
                 ProductId = item.ProductId,
                 ProductName = item.ProductName,
                 Quantity = item.Quantity.Value,
                 UnitPrice = item.UnitPrice.Value,
-                TotalPrice = item.TotalPrice.Value
             }).ToList()
         };
     }

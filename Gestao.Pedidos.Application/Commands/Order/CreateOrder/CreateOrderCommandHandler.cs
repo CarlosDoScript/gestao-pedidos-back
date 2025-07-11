@@ -3,7 +3,8 @@
 public class CreateOrderCommandHandler(
         ICustomerRepository customerRepository,
         IProductRepository productRepository,
-        IOrderRepository orderRepository
+        IOrderRepository orderRepository,
+        IOrderMongoRepository orderMongoRepository
     ) : IRequestHandler<CreateOrderCommand, Resultado<OrderViewModel>>
 {
     public async Task<Resultado<OrderViewModel>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
@@ -45,6 +46,12 @@ public class CreateOrderCommandHandler(
 
         await orderRepository.AddAsync(resultadoOrder.Valor);
         await orderRepository.SaveAsync();
+
+        resultadoOrder.Valor.SetCustomer(customer);
+
+        var orderDocumento = OrderToDocumentMapper.Map(resultadoOrder.Valor);
+
+        await orderMongoRepository.InsertAsync(orderDocumento);
 
         return Resultado<OrderViewModel>.Ok(resultadoOrder.Valor.ToViewModel());
     }

@@ -8,3 +8,5 @@ global using Gestao.Pedidos.Core.ValueObjects;
 global using Gestao.Pedidos.Application.Extensions;
 global using FluentValidation;
 global using Gestao.Pedidos.Application.Commands.Order.CreateOrder;
+global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Contracts;
+global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Mappings;

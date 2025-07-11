@@ -3,3 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.Reflection;
 global using Gestao.Pedidos.Core.Repositories;
+global using MongoDB.Bson.Serialization.Attributes;
+global using MongoDB.Driver;
+global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Documents;
+global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Contracts;
