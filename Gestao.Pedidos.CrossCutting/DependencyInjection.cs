@@ -3,6 +3,7 @@ using Gestao.Pedidos.Core.Repositories;
 using Gestao.Pedidos.Infrastructure.Logging;
 using Gestao.Pedidos.Infrastructure.Persistence;
 using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Contracts;
+using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Documents;
 using Gestao.Pedidos.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,8 +24,8 @@ public static class DependencyInjection
     {
         services.AddSingleton(typeof(IAppLogger<>), typeof(AppLogger<>));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly));
-        AddRepositories(services);
         ResolveConexaoBanco(services, configuration);
+        AddRepositories(services);
     }
 
     static void AddRepositories(IServiceCollection services)
@@ -35,6 +36,16 @@ public static class DependencyInjection
         services.AddTransient<IOrderItemRepository, OrderItemRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderMongoRepository, OrderMongoRepository>();
+        MongoCollections(services);
+    }
+
+    static void MongoCollections(IServiceCollection services)
+    {
+        services.AddScoped(sp =>
+        {
+            var db = sp.GetRequiredService<IMongoDatabase>();
+            return db.GetCollection<OrderDocument>("orders");
+        });
     }
 
     static void ResolveConexaoBanco(IServiceCollection services, IConfiguration configuration)
