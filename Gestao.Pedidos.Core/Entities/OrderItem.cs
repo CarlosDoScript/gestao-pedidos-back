@@ -4,7 +4,7 @@ public class OrderItem : BaseEntity
 {
     public OrderItem() {}
 
-    OrderItem(int orderId, 
+    OrderItem(
         int productId,
         string productName,
         Quantity quantity, 
@@ -12,7 +12,6 @@ public class OrderItem : BaseEntity
         Money totalPrice
     )
     {
-        OrderId = orderId;
         ProductId = productId;
         ProductName = productName;
         Quantity = quantity;
@@ -31,19 +30,14 @@ public class OrderItem : BaseEntity
     public virtual Product Product { get; private set; }    
 
     public static Resultado<OrderItem> Create(
-        int orderId,
         int productId,
         string productName,
         int quantity,
-        decimal unitPrice,
-        decimal totalPrice
+        decimal unitPrice
     )
     {
         var erros = new List<string>();
 
-        if (orderId <= 0)
-            erros.Add("OrdeId inválido.");
-        
         if (productId <= 0)
             erros.Add("productId inválido.");
 
@@ -60,7 +54,7 @@ public class OrderItem : BaseEntity
         if (resultadoUnitPrice.ContemErros)
             erros.AddRange(resultadoUnitPrice.Erros);
 
-        var resultadoTotalPrice = Money.Create(totalPrice);
+        var resultadoTotalPrice = Money.Create(unitPrice * quantity);
 
         if (resultadoTotalPrice.ContemErros)
             erros.AddRange(resultadoTotalPrice.Erros);
@@ -69,7 +63,6 @@ public class OrderItem : BaseEntity
             return Resultado<OrderItem>.Falhar(erros);
 
         var orderItem = new OrderItem(
-            orderId,
             productId,
             productName,
             resultadoQuantity.Valor,

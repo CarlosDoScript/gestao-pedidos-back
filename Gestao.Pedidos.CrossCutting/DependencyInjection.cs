@@ -1,4 +1,5 @@
-﻿using Gestao.Pedidos.Core.Repositories;
+﻿using Gestao.Pedidos.Application.Commands.Order.CreateOrder;
+using Gestao.Pedidos.Core.Repositories;
 using Gestao.Pedidos.Infrastructure.Logging;
 using Gestao.Pedidos.Infrastructure.Persistence;
 using Gestao.Pedidos.Infrastructure.Persistence.Repositories;
@@ -20,6 +21,7 @@ public static class DependencyInjection
     static void Infraestrutura(IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton(typeof(IAppLogger<>), typeof(AppLogger<>));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateOrderCommand).Assembly));
         AddRepositories(services);
         ResolveConexaoBanco(services, configuration);
     }

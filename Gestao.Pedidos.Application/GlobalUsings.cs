@@ -2,3 +2,9 @@
 global using Gestao.Pedidos.Application.ViewModels;
 global using Gestao.Pedidos.SharedKernel.Commom;
 global using MediatR;
+global using Gestao.Pedidos.Core.Entities;
+global using Gestao.Pedidos.Core.Repositories;
+global using Gestao.Pedidos.Core.ValueObjects;
+global using Gestao.Pedidos.Application.Extensions;
+global using FluentValidation;
+global using Gestao.Pedidos.Application.Commands.Order.CreateOrder;
