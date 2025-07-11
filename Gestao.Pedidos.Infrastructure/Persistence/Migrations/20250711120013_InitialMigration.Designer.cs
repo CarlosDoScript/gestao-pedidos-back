@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GestaoPedidosDbContext))]
-    [Migration("20250711002357_InitialMigration")]
+    [Migration("20250711120013_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -176,7 +176,7 @@ namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.OwnsOne("Gestao.Pedidos.Core.ValueObjects.Quantity", "TotalAmount", b1 =>
+                    b.OwnsOne("Gestao.Pedidos.Core.ValueObjects.Money", "TotalAmount", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .HasColumnType("int");
@@ -213,23 +213,6 @@ namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("Gestao.Pedidos.Core.ValueObjects.Quantity", "Quantity", b1 =>
-                        {
-                            b1.Property<int>("OrderItemId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Value")
-                                .HasColumnType("INT")
-                                .HasColumnName("Quantity");
-
-                            b1.HasKey("OrderItemId");
-
-                            b1.ToTable("OrderItem");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderItemId");
-                        });
-
                     b.OwnsOne("Gestao.Pedidos.Core.ValueObjects.Money", "TotalPrice", b1 =>
                         {
                             b1.Property<int>("OrderItemId")
@@ -255,6 +238,23 @@ namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
                             b1.Property<decimal>("Value")
                                 .HasColumnType("DECIMAL(18,2)")
                                 .HasColumnName("UnitPrice");
+
+                            b1.HasKey("OrderItemId");
+
+                            b1.ToTable("OrderItem");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderItemId");
+                        });
+
+                    b.OwnsOne("Gestao.Pedidos.Core.ValueObjects.Quantity", "Quantity", b1 =>
+                        {
+                            b1.Property<int>("OrderItemId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Value")
+                                .HasColumnType("INT")
+                                .HasColumnName("Quantity");
 
                             b1.HasKey("OrderItemId");
 

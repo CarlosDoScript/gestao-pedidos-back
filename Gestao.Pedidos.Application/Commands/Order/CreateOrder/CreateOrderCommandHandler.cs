@@ -1,6 +1,6 @@
 ﻿namespace Gestao.Pedidos.Application.Commands.Order.CreateOrder;
 
-public class CreateOrderCommandHandler(
+public sealed class CreateOrderCommandHandler(
         ICustomerRepository customerRepository,
         IProductRepository productRepository,
         IOrderRepository orderRepository,
