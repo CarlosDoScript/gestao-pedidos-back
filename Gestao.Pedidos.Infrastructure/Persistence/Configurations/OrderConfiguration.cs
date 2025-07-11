@@ -41,5 +41,12 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasForeignKey(x => x.CustomerId)
             .IsRequired()
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasMany(x => x.Items)
+            .WithOne()
+            .HasForeignKey(x => x.OrderId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

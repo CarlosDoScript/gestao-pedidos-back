@@ -4,8 +4,8 @@ public class Order : BaseEntity
 {
     Order(
         int customerId,
-        DateTime orderDate, 
-        Money totalAmount, 
+        DateTime orderDate,
+        Money totalAmount,
         OrderStatus status,
         List<OrderItem> items
     )
@@ -14,10 +14,12 @@ public class Order : BaseEntity
         OrderDate = orderDate;
         TotalAmount = totalAmount;
         Status = status;
-        Items.AddRange(items);
+
+        foreach (var item in items)
+            Items.Add(item);
     }
 
-    private  Order(){}
+    private Order() { }
 
     public int CustomerId { get; private set; }
     public DateTime OrderDate { get; private set; }
@@ -26,7 +28,7 @@ public class Order : BaseEntity
 
     public virtual Customer Customer { get; private set; }
 
-    public List<OrderItem> Items { get; private set; } = new();
+    public virtual ICollection<OrderItem> Items { get; private set; } = new List<OrderItem>();
 
     public static Resultado<Order> Create(
         int customerId,
@@ -45,7 +47,7 @@ public class Order : BaseEntity
             erros.AddRange(resultadoTotalAmount.Erros);
 
         if (erros.Any())
-            return Resultado<Order>.Falhar(erros);        
+            return Resultado<Order>.Falhar(erros);
 
         var order = new Order(
             customerId,
@@ -82,7 +84,9 @@ public class Order : BaseEntity
         OrderDate = DateTime.UtcNow;
 
         Items.Clear();
-        Items.AddRange(items);
+
+        foreach (var item in items)
+            Items.Add(item);
 
         return Resultado.Ok();
     }

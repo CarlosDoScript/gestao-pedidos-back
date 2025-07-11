@@ -52,6 +52,6 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
             .WithMany(x => x.Items)
             .HasForeignKey(x => x.OrderId)
             .IsRequired()
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -4,40 +4,61 @@ public sealed class UpdateOrderCommandHandler(
         IOrderRepository orderRepository,
         ICustomerRepository customerRepository,
         IProductRepository productRepository,
-        IOrderMongoRepository orderMongoRepository
+        IOrderMongoRepository orderMongoRepository,
+        IOrderItemRepository orderItemRepository,
+        GestaoPedidosDbContext context
     ) : IRequestHandler<UpdateOrderCommand, Resultado<OrderViewModel>>
 {
     public async Task<Resultado<OrderViewModel>> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
-    {        
-        var order = await orderRepository.GetByIdAsync(command.OrderId);
+    {
+        using var transaction = await context.Database.BeginTransactionAsync();
 
-        if (order is null)
-            return Resultado<OrderViewModel>.Falhar("Pedido não encontrado.");
+        try
+        {
+            var order = await orderRepository.GetByIdAndItemsAsync(command.OrderId);
 
-        var resultadoItems = await ValidarEObterOrderItemsAsync(command.Items);
+            if (order is null)
+                return Resultado<OrderViewModel>.Falhar("Pedido não encontrado.");
 
-        if (resultadoItems.ContemErros)
-            return Resultado<OrderViewModel>.Falhar(resultadoItems.Erros);
+            var resultadoItems = await ValidarEObterOrderItemsAsync(command.Items);
 
-        var resultadoOrderUpdate = order.Update(command.CustomerId, resultadoItems.Valor);
+            if (resultadoItems.ContemErros)
+                return Resultado<OrderViewModel>.Falhar(resultadoItems.Erros);
 
-        if (resultadoOrderUpdate.ContemErros)
-            return Resultado<OrderViewModel>.Falhar(resultadoOrderUpdate.Erros);
+            await orderItemRepository.RemoveAllAsync(order.Items);
 
-        var customer = await customerRepository.GetByIdAsync(command.CustomerId);
+            var resultadoOrderUpdate = order.Update(command.CustomerId, resultadoItems.Valor);
 
-        if (customer is null)
-            return Resultado<OrderViewModel>.Falhar("Cliente não encontrado.");
+            if (resultadoOrderUpdate.ContemErros)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+                return Resultado<OrderViewModel>.Falhar(resultadoOrderUpdate.Erros);
+            }
 
-        await orderRepository.UpdateAsync(order);
-        await orderRepository.SaveAsync();
+            var customer = await customerRepository.GetByIdAsync(command.CustomerId);
 
-        order.SetCustomer(customer);
+            if (customer is null)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+                return Resultado<OrderViewModel>.Falhar("Cliente não encontrado.");
+            }
 
-        var document = OrderToDocumentMapper.Map(order);
-        await orderMongoRepository.UpdateAsync(document);
+            await orderRepository.UpdateAsync(order);
+            await orderRepository.SaveAsync();
+            await transaction.CommitAsync(cancellationToken);
 
-        return Resultado<OrderViewModel>.Ok(order.ToViewModel());
+            order.SetCustomer(customer);
+
+            var document = OrderToDocumentMapper.Map(order);
+            await orderMongoRepository.UpdateAsync(document);
+
+            return Resultado<OrderViewModel>.Ok(order.ToViewModel());
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync(cancellationToken);
+            throw;
+        }
     }
 
     async Task<Resultado<List<OrderItem>>> ValidarEObterOrderItemsAsync(List<OrderItemInputModel> items)

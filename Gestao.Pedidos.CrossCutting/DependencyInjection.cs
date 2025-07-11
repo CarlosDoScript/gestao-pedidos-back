@@ -32,6 +32,7 @@ public static class DependencyInjection
         services.AddTransient(typeof(IBaseEntityRepository<,>), typeof(BaseEntityRepository<,>));
         services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
+        services.AddTransient<IOrderItemRepository, OrderItemRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddScoped<IOrderMongoRepository, OrderMongoRepository>();
     }

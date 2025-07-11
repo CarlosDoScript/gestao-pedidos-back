@@ -201,7 +201,7 @@ namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
                     b.HasOne("Gestao.Pedidos.Core.Entities.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Gestao.Pedidos.Core.Entities.Product", "Product")

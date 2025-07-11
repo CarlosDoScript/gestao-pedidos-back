@@ -12,6 +12,8 @@ public interface IBaseEntityRepository<TEntity, in TId>
 
     Task RemoveAsync(TEntity entity);
 
+    Task RemoveAllAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+
     Task<TEntity> UpdateAsync(TEntity entity);
 
     Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);

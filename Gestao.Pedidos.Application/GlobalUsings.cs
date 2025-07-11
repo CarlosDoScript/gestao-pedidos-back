@@ -10,3 +10,4 @@ global using FluentValidation;
 global using Gestao.Pedidos.Application.Commands.Order.CreateOrder;
 global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Contracts;
 global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Mappings;
+global using Gestao.Pedidos.Infrastructure.Persistence;

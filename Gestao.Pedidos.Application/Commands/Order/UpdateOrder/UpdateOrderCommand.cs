@@ -2,7 +2,7 @@
 
 public class UpdateOrderCommand : IRequest<Resultado<OrderViewModel>>
 {
-    internal int OrderId { get; set; }
+    internal int OrderId { get; private set; }
 
     public int CustomerId { get; set; }
     public List<OrderItemInputModel> Items { get; set; } = new();

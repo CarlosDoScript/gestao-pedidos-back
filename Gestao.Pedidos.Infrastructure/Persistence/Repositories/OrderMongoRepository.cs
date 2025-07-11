@@ -7,7 +7,7 @@ public class OrderMongoRepository : IOrderMongoRepository
     public OrderMongoRepository(IMongoDatabase database)
     {
         _collection = database.GetCollection<OrderDocument>("orders");
-    }
+    }   
 
     public async Task InsertAsync(OrderDocument document)
     {
@@ -20,5 +20,11 @@ public class OrderMongoRepository : IOrderMongoRepository
         var options = new ReplaceOptions { IsUpsert = true };
 
         await _collection.ReplaceOneAsync(filter, document, options);
+    }
+
+    public async Task DeleteAsync(int orderId)
+    {
+        var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, orderId);
+        await _collection.DeleteOneAsync(filter);
     }
 }

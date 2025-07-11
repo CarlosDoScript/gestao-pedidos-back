@@ -83,7 +83,7 @@ namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
                         column: x => x.OrderId,
                         principalTable: "Order",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderItem_Product_ProductId",
                         column: x => x.ProductId,

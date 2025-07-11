@@ -1,6 +1,5 @@
-﻿using Gestao.Pedidos.Core.Repositories;
+﻿using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using System.Linq.Dynamic.Core;
 
 namespace Gestao.Pedidos.Infrastructure.Persistence.Repositories;
 
@@ -115,6 +114,14 @@ public class BaseEntityRepository<TEntity, TId>(
     {
         dbSet.Remove(entity);
         return Task.CompletedTask;
+    }
+
+    public async Task RemoveAllAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default)
+    {
+        context.Set<TEntity>()
+            .RemoveRange(entities);               
+
+        await Task.Yield();
     }
 
     public async Task SaveAsync(CancellationToken cancellationToken = default)

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GestaoPedidosDbContext))]
-    [Migration("20250711120013_InitialMigration")]
+    [Migration("20250711132110_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -204,7 +204,7 @@ namespace Gestao.Pedidos.Infrastructure.Persistence.Migrations
                     b.HasOne("Gestao.Pedidos.Core.Entities.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Gestao.Pedidos.Core.Entities.Product", "Product")

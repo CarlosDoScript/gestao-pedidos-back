@@ -2,4 +2,5 @@
 
 public interface IOrderRepository : IBaseEntityRepository<Order,int>
 {
+    Task<Order?> GetByIdAndItemsAsync(int id);
 }

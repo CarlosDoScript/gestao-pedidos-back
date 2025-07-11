@@ -1,4 +1,5 @@
 ﻿using Gestao.Pedidos.Application.Commands.Order.CreateOrder;
+using Gestao.Pedidos.Application.Commands.Order.DeleteOrder;
 using Gestao.Pedidos.Application.Commands.Order.UpdateOrder;
 using MediatR;
 
@@ -25,6 +26,19 @@ public class OrderController(
     {
         command.SetId(orderId);
 
+        var resultado = await mediator.Send(command);
+
+        if(resultado.ContemErros)
+            return BadRequest(resultado);
+
+        return Ok(resultado);
+    }
+
+    [HttpDelete("{orderId}")]
+    public async Task<IActionResult> DeleteAsync(int orderId)
+    {
+        var command = new DeleteOrderCommand(orderId);
+        
         var resultado = await mediator.Send(command);
 
         if(resultado.ContemErros)
