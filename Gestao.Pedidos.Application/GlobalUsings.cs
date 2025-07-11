@@ -12,3 +12,4 @@ global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Contracts;
 global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Mappings;
 global using Gestao.Pedidos.Infrastructure.Persistence;
 global using Gestao.Pedidos.Infrastructure.Persistence.Mongo.Documents;
+global using Gestao.Pedidos.Application.Commands.Order.UpdateOrder;

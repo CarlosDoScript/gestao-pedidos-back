@@ -1,13 +1,12 @@
 ﻿namespace Gestao.Pedidos.Application.Validators.Order;
 
-public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
+public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
-    public CreateOrderCommandValidator()
+    public UpdateOrderCommandValidator()
     {
         RuleFor(x => x.CustomerId)
-         .GreaterThan(0)
-         .WithMessage("Customer é obrigatório.");
-
+        .GreaterThan(0)
+        .WithMessage("Customer é obrigatório.");
 
         RuleFor(x => x.Items)
             .NotNull().WithMessage("Items não pode ser nulo.")
