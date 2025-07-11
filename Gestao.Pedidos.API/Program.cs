@@ -9,7 +9,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ResolveDependencias(builder.Configuration);
 builder.Services.AdicionarSwaggerDocV1();
-builder.AddAutenticacaoOption(builder.Configuration);
 
 var app = builder.Build();
 

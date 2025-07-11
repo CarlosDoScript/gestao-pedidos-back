@@ -2,6 +2,8 @@
 
 public class Customer : BaseEntity
 {
+    private Customer() {}
+
     Customer(
         string name, 
         Email email,
@@ -16,6 +18,8 @@ public class Customer : BaseEntity
     public string Name { get; private set; }
     public Email Email { get; private set; }
     public Phone Phone { get; private set; }
+
+    public virtual List<Order> Orders { get; private set; }
 
     public static Resultado<Customer> Criar(
         string name,

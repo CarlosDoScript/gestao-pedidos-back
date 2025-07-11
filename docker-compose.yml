@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Teste@123"
+      ACCEPT_EULA: "Y"
+    networks:
+      - gestao-network
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - gestao-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Gestao.Pedidos.API/Dockerfile
+    container_name: gestao-pedidos-api
+    depends_on:
+      - sqlserver
+      - mongodb
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Sql=Server=sqlserver;Database=GestaoPedidosDb;User Id=sa;Password=YourStrong@Password1;TrustServerCertificate=True
+      - ConnectionStrings__Mongo=mongodb://mongodb:27017
+    networks:
+      - gestao-network
+
+networks:
+  gestao-network:
+    driver: bridge
