@@ -4,25 +4,6 @@ public class OrderMongoRepository(
         IMongoCollection<OrderDocument> collection
     ) : IOrderMongoRepository
 {
-    public async Task InsertAsync(OrderDocument document)
-    {
-        await collection.InsertOneAsync(document);
-    }
-
-    public async Task UpdateAsync(OrderDocument document)
-    {
-        var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, document.Id);
-        var options = new ReplaceOptions { IsUpsert = true };
-
-        await collection.ReplaceOneAsync(filter, document, options);
-    }
-
-    public async Task DeleteAsync(int orderId)
-    {
-        var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, orderId);
-        await collection.DeleteOneAsync(filter);
-    }
-
     public async Task<Paginacao<OrderDocument>> ObterPedidosPaginadosAsync(ConsultaPaginada filtro, CancellationToken cancellationToken = default)
     {
         var sort = filtro.OrdemAscendente
@@ -41,4 +22,29 @@ public class OrderMongoRepository(
 
         return new Paginacao<OrderDocument>(items, ((int)totalRegistros), filtro.NumeroPagina, filtro.TamanhoPagina);
     }
+
+    public async Task<OrderDocument> GetByIdAsync(int id)
+    {
+        var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, id);
+        return await collection.Find(filter).FirstOrDefaultAsync();
+    }
+
+    public async Task InsertAsync(OrderDocument document)
+    {
+        await collection.InsertOneAsync(document);
+    }
+
+    public async Task UpdateAsync(OrderDocument document)
+    {
+        var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, document.Id);
+        var options = new ReplaceOptions { IsUpsert = true };
+
+        await collection.ReplaceOneAsync(filter, document, options);
+    }
+
+    public async Task DeleteAsync(int orderId)
+    {
+        var filter = Builders<OrderDocument>.Filter.Eq(x => x.Id, orderId);
+        await collection.DeleteOneAsync(filter);
+    }    
 }

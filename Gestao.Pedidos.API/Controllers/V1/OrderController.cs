@@ -2,6 +2,7 @@
 using Gestao.Pedidos.Application.Commands.Order.DeleteOrder;
 using Gestao.Pedidos.Application.Commands.Order.UpdateOrder;
 using Gestao.Pedidos.Application.Queries.Order.GetAllOrder;
+using Gestao.Pedidos.Application.Queries.Order.GetByIOrder;
 using MediatR;
 
 namespace Gestao.Pedidos.API.Controllers.V1;
@@ -22,6 +23,19 @@ public class OrderController(
         return Ok(resultado);
     }
 
+    [HttpGet("{id}")]  
+    public async Task<IActionResult> GetByIdAsync(int id)
+    {
+        var query = new GetByIdOrderQuery() { OrderId = id };
+
+        var resultado = await mediator.Send(query);
+
+        if (resultado.ContemErros)
+            return BadRequest(resultado);
+
+        return Ok(resultado);
+    }
+
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] CreateOrderCommand command)
     {
@@ -33,10 +47,10 @@ public class OrderController(
         return Ok(resultado);
     }
 
-    [HttpPut("{orderId}")]
-    public async Task<IActionResult> PutAsync(int orderId, [FromBody] UpdateOrderCommand command)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutAsync(int id, [FromBody] UpdateOrderCommand command)
     {
-        command.SetId(orderId);
+        command.SetId(id);
 
         var resultado = await mediator.Send(command);
 
@@ -46,10 +60,10 @@ public class OrderController(
         return Ok(resultado);
     }
 
-    [HttpDelete("{orderId}")]
-    public async Task<IActionResult> DeleteAsync(int orderId)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(int id)
     {
-        var command = new DeleteOrderCommand(orderId);
+        var command = new DeleteOrderCommand(id);
 
         var resultado = await mediator.Send(command);
 
