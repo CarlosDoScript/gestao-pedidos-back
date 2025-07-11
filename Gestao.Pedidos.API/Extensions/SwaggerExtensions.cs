@@ -1,4 +1,6 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace Gestao.Pedidos.API.Extensions;
 
@@ -11,11 +13,15 @@ public static class SwaggerExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Gestão.Pedidos.API",
+                Title = "Gestão de Pedidos API",
                 Version = "v1"
             });
             c.IgnoreObsoleteActions();
             c.CustomSchemaIds(type => type.FullName);
+            
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);
         });
     }
 }
