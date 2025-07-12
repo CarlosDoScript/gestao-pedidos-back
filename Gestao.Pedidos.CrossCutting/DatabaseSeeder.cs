@@ -16,7 +16,6 @@ public static class DatabaseSeeder
         var customerName = "André Caio da Paz";
         var customerEmail = "andre.caio.dapaz@novaface.com.br";
         var customerPhone = "(38) 99560-9927";
-
         var context = scope.ServiceProvider.GetRequiredService<GestaoPedidosDbContext>();
 
         if (!await context.Customer.AnyAsync())
@@ -44,7 +43,7 @@ public static class DatabaseSeeder
         {
             await mongoCustomerCollection.InsertOneAsync(new CustomerDocument
             {
-                Id = 9999,
+                Id = context.Customer.FirstOrDefault().Id,
                 Name = customerName,
                 Email = customerEmail,
                 Phone = customerPhone,
@@ -55,14 +54,19 @@ public static class DatabaseSeeder
 
         if (productCount == 0)
         {
-            var produtos = new List<ProductDocument>
-            {
-                new() { Id = 500, Name = "Teclado", Price = 10M },
-                new() { Id = 999, Name = "Mouse", Price = 20M },
-                new() { Id = 200, Name = "Monitor 25 LED", Price = 30M },
-            };
+            var products = context.Product.ToList();
 
-            await mongoProductCollection.InsertManyAsync(produtos);
+            foreach (var product in products)
+            {
+                var productDocument = new ProductDocument
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price.Value
+                };
+
+                await mongoProductCollection.InsertOneAsync(productDocument);
+            }
         }
     }
 }
