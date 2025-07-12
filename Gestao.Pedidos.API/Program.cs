@@ -4,6 +4,8 @@ using Gestao.Pedidos.API.Middlewares;
 using Gestao.Pedidos.Application.Commands.Order.CreateOrder;
 using Gestao.Pedidos.CrossCutting;
 using FluentValidation.AspNetCore;
+using Gestao.Pedidos.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +45,8 @@ builder.Services.AdicionarSwaggerDocV1();
 
 var app = builder.Build();
 
+Migration(app);
+
 using (var scope = app.Services.CreateScope())
 {
     var serviceProvider = scope.ServiceProvider;
@@ -60,3 +64,12 @@ app.UseCors("AllowAngularApp");
 app.MapControllers();
 app.UseMiddleware<ExceptionMiddleware>();
 app.Run();
+
+
+static IServiceScope Migration(WebApplication app)
+{
+    var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<GestaoPedidosDbContext>();
+    context.Database.Migrate();
+    return scope;
+}
