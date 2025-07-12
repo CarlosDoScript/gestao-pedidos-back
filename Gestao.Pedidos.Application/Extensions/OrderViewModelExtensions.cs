@@ -9,7 +9,7 @@ public static class OrderViewModelExtensions
             order.Id,
             order.CustomerId,
             order.Customer?.Name,
-            order.OrderDate.ToShortDateString(),
+            order.OrderDate.ToString("dd/MM/yyyy"),
             order.TotalAmount.Value.ToString("N2"),
             order.Status.ToString(),
             order.Items.Select(item => new OrderItemViewModel
@@ -30,7 +30,7 @@ public static class OrderViewModelExtensions
             order.Id,
             order.CustomerId,
             order.CustomerName,
-            order.OrderDate.ToShortDateString(),
+            order.OrderDate.ToString("dd/MM/yyyy"),
             order.TotalAmount.ToString("N2"),
             order.Status.ToString(),
             order.Items.Select(item => new OrderItemViewModel

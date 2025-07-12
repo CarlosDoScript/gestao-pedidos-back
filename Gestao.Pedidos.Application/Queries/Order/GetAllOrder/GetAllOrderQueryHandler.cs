@@ -13,7 +13,7 @@ public sealed class GetAllOrderQueryHandler(
                   x.Id,
                   x.CustomerId,
                   x.CustomerName,
-                  x.OrderDate.ToShortDateString(),
+                  x.OrderDate.ToString("dd/MM/yyyy"),
                   x.TotalAmount.ToString("N2"),
                   x.Status
             )).ToList();
