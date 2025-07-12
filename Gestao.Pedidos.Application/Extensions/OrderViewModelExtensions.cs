@@ -31,7 +31,7 @@ public static class OrderViewModelExtensions
             order.CustomerId,
             order.CustomerName,
             order.OrderDate.ToShortDateString(),
-            order.TotalAmount.ToString("C"),
+            order.TotalAmount.ToString("N2"),
             order.Status.ToString(),
             order.Items.Select(item => new OrderItemViewModel
             (

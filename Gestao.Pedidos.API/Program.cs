@@ -7,6 +7,31 @@ using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    if (isDocker)
+    {
+        options.ListenAnyIP(80); 
+    }
+    else
+    {
+        options.ListenAnyIP(5000); 
+        options.ListenAnyIP(5001, listenOptions => listenOptions.UseHttps());
+    }
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,7 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseCors("AllowAngularApp");
 app.MapControllers();
 app.UseMiddleware<ExceptionMiddleware>();
 app.Run();

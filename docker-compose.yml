@@ -7,7 +7,7 @@ services:
     ports:
       - "1433:1433"
     environment:
-      SA_PASSWORD: "Teste@123"
+      SA_PASSWORD: "TesteTecnico@999"
       ACCEPT_EULA: "Y"
     networks:
       - gestao-network
@@ -29,10 +29,11 @@ services:
       - sqlserver
       - mongodb
     ports:
-      - "5000:8080"
+      - "8080:80" 
     environment:
+      - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__Sql=Server=sqlserver;Database=GestaoPedidosDb;User Id=sa;Password=YourStrong@Password1;TrustServerCertificate=True
+      - ConnectionStrings__Sql=Server=sqlserver;Database=GestaoPedidosDb;User Id=sa;Password=TesteTecnico@999;TrustServerCertificate=True
       - ConnectionStrings__Mongo=mongodb://mongodb:27017
     networks:
       - gestao-network

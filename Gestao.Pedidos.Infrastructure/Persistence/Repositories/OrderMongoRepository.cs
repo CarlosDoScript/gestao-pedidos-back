@@ -6,19 +6,32 @@ public class OrderMongoRepository(
 {
     public async Task<Paginacao<OrdersDocument>> ObterPedidosPaginadosAsync(ConsultaPaginada filtro, CancellationToken cancellationToken = default)
     {
-        var sort = filtro.OrdemAscendente
-        ? Builders<OrderDocument>.Sort.Ascending(filtro.OrdenarPor ?? "_id")
-        : Builders<OrderDocument>.Sort.Descending(filtro.OrdenarPor ?? "_id");
+        var totalRegistros = await collection.CountDocumentsAsync(
+            FilterDefinition<OrderDocument>.Empty,
+            cancellationToken: cancellationToken);
 
-        var totalRegistros = await collection
-            .CountDocumentsAsync(FilterDefinition<OrderDocument>.Empty, cancellationToken: cancellationToken);
+        var totalPaginas = totalRegistros <= 0
+            ? 0
+            : (int)Math.Ceiling(totalRegistros / (double)filtro.TamanhoPagina);
+
+        var pagina = filtro.NumeroPagina;
+
+        if (pagina < 1)
+            pagina = 1;
+
+        if (pagina > totalPaginas)
+            pagina = totalPaginas == 0 ? 1 : totalPaginas;
+
+        var sort = filtro.OrdemAscendente
+            ? Builders<OrderDocument>.Sort.Ascending(filtro.OrdenarPor ?? "_id")
+            : Builders<OrderDocument>.Sort.Descending(filtro.OrdenarPor ?? "_id");
 
         var items = await collection
             .Find(FilterDefinition<OrderDocument>.Empty)
             .Sort(sort)
-            .Skip((filtro.NumeroPagina - 1) * filtro.TamanhoPagina)
+            .Skip((pagina - 1) * filtro.TamanhoPagina)
             .Limit(filtro.TamanhoPagina)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         var orders = items.Select(x => new OrdersDocument
         {
@@ -28,9 +41,9 @@ public class OrderMongoRepository(
             OrderDate = x.OrderDate,
             TotalAmount = x.TotalAmount,
             Status = x.Status
-        }).ToList();
+        });
 
-        return new Paginacao<OrdersDocument>(orders, ((int)totalRegistros), filtro.NumeroPagina, filtro.TamanhoPagina);
+        return new Paginacao<OrdersDocument>(orders, (int)totalRegistros, pagina, filtro.TamanhoPagina);
     }
 
     public async Task<OrderDocument> GetByIdAsync(int id)

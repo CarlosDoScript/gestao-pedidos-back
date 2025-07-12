@@ -14,10 +14,10 @@ public sealed class GetAllOrderQueryHandler(
                   x.CustomerId,
                   x.CustomerName,
                   x.OrderDate.ToShortDateString(),
-                  x.TotalAmount.ToString("C"),
+                  x.TotalAmount.ToString("N2"),
                   x.Status
-            )).ToList()
-            ;
+            )).ToList();
+
         var paginacao = new Paginacao<OrdersViewModel>(orders, registros.TotalRegistros, registros.PaginaAtual, registros.TotalPaginas);
         return Resultado<Paginacao<OrdersViewModel>>.Ok(paginacao);
     }
