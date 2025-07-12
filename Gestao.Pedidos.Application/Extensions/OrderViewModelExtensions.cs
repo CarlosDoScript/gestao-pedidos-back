@@ -6,11 +6,11 @@ public static class OrderViewModelExtensions
     {
         return new OrderViewModel
         (
-         order.Id,
+            order.Id,
             order.CustomerId,
             order.Customer?.Name,
             order.OrderDate.ToShortDateString(),
-            order.TotalAmount.Value.ToString("C"),
+            order.TotalAmount.Value.ToString("N2"),
             order.Status.ToString(),
             order.Items.Select(item => new OrderItemViewModel
             (
@@ -18,7 +18,7 @@ public static class OrderViewModelExtensions
                 item.ProductId,
                 item.ProductName,
                 item.Quantity.Value,
-                item.UnitPrice.Value.ToString("C")
+                item.UnitPrice.Value.ToString("N2")
             )).ToList()
         );
     }
@@ -39,7 +39,7 @@ public static class OrderViewModelExtensions
                 item.ProductId,
                 item.ProductName,
                 item.Quantity,
-                item.UnitPrice.ToString("C")
+                item.UnitPrice.ToString("N2")
             )).ToList()
         );
     }

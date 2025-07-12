@@ -7,6 +7,10 @@ public sealed class GetByIdOrderQueryHandler(
     public async Task<Resultado<OrderViewModel>> Handle(GetByIdOrderQuery request, CancellationToken cancellationToken)
     {
         var order = await orderMongoRepository.GetByIdAsync(request.OrderId);
+
+        if (order is null)
+            return Resultado<OrderViewModel>.Falhar("Pedido não encontrado.");
+
         return Resultado<OrderViewModel>.Ok(order.ToViewModel());
     }
 }

@@ -31,11 +31,15 @@ public static class DependencyInjection
     static void AddRepositories(IServiceCollection services)
     {
         services.AddTransient(typeof(IBaseEntityRepository<,>), typeof(BaseEntityRepository<,>));
-        services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();
+        services.AddTransient<ICustomerRepository, CustomerRepository>();
         services.AddTransient<IOrderItemRepository, OrderItemRepository>();
         services.AddTransient<IProductRepository, ProductRepository>();
+
         services.AddScoped<IOrderMongoRepository, OrderMongoRepository>();
+        services.AddScoped<ICustomerMongoRepository, CustomerMongoRepository>();
+        services.AddScoped<IProductMongoRepository, ProductMongoRepository>();
+
         MongoCollections(services);
     }
 
@@ -45,6 +49,18 @@ public static class DependencyInjection
         {
             var db = sp.GetRequiredService<IMongoDatabase>();
             return db.GetCollection<OrderDocument>("orders");
+        });
+        
+        services.AddScoped(sp =>
+        {
+            var db = sp.GetRequiredService<IMongoDatabase>();
+            return db.GetCollection<CustomerDocument>("customers");
+        });
+        
+        services.AddScoped(sp =>
+        {
+            var db = sp.GetRequiredService<IMongoDatabase>();
+            return db.GetCollection<ProductDocument>("products");
         });
     }
 

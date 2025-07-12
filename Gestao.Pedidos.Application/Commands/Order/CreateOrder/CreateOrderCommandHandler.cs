@@ -1,10 +1,10 @@
 ﻿namespace Gestao.Pedidos.Application.Commands.Order.CreateOrder;
 
 public sealed class CreateOrderCommandHandler(
-        ICustomerRepository customerRepository,
         IProductRepository productRepository,
         IOrderRepository orderRepository,
-        IOrderMongoRepository orderMongoRepository
+        IOrderMongoRepository orderMongoRepository,
+        ICustomerRepository customerRepository
     ) : IRequestHandler<CreateOrderCommand, Resultado<OrderViewModel>>
 {
     public async Task<Resultado<OrderViewModel>> Handle(CreateOrderCommand command, CancellationToken cancellationToken)

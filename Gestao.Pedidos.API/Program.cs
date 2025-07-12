@@ -43,6 +43,12 @@ builder.Services.AdicionarSwaggerDocV1();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    await DatabaseSeeder.SeedAsync(serviceProvider);
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

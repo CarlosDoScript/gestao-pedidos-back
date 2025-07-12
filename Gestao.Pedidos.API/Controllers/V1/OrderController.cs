@@ -9,7 +9,7 @@ using MediatR;
 namespace Gestao.Pedidos.API.Controllers.V1;
 
 [Route("api/v1/order")]
-[Tags("Pedidos")]
+[Tags("Order")]
 public class OrderController(
         IMediator mediator
     ) : ApiV1Controller
@@ -18,7 +18,7 @@ public class OrderController(
     /// Retorna todos os pedidos.
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(typeof(Resultado<List<OrderViewModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Resultado<IEnumerable<OrderViewModel>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Resultado), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetAllAsync([FromQuery] GetAllOrderQuery query)
     {
